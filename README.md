@@ -7,7 +7,7 @@
 
  <li> Dictionary Algorithm with Json Files</li>
    <li> Tic Tac Toe Game with IA Computer player </li>
-   <li> Transient response of the CD4046 (Phase-Locked Loops PLL) Integrated Circuit's Transfer function </li>
+   <li> Transient response of the CD4046 Integrated Circuit's Transfer function (Phase-Locked Loops PLL)</li>
    
    
  
