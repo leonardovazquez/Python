@@ -1,4 +1,4 @@
-<h1> # Python Projects </h1>
+<h1> Python Projects  :snake:</h1>
 
 <p>  Here are some projects developed by me:</p> 
 
