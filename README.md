@@ -10,8 +10,7 @@
    <li> Jupyter Plotter with random DataFrames and CSV files </li>
    <li> Transient response of the CD4046 Integrated Circuit's Transfer function (Phase-Locked Loops PLL)</li>
    
-   
- 
+    
 </ul>
 
 
