@@ -1,0 +1,1069 @@
+[
+    {
+        "id": "fb79fe35059b7134",
+        "type": "tab",
+        "label": "Flow 1",
+        "disabled": false,
+        "info": "",
+        "env": []
+    },
+    {
+        "id": "921db3616040a4d2",
+        "type": "mqtt in",
+        "z": "fb79fe35059b7134",
+        "name": "Alarma",
+        "topic": "/vazquez/entradas/alarma",
+        "qos": "2",
+        "datatype": "auto",
+        "broker": "68f48d6607422a18",
+        "nl": false,
+        "rap": true,
+        "rh": 0,
+        "inputs": 0,
+        "x": 130,
+        "y": 80,
+        "wires": [
+            [
+                "e0daad0a94b82eba"
+            ]
+        ]
+    },
+    {
+        "id": "15d74c9d2984f395",
+        "type": "ui_toast",
+        "z": "fb79fe35059b7134",
+        "position": "dialog",
+        "displayTime": "3",
+        "highlight": "",
+        "sendall": true,
+        "outputs": 1,
+        "ok": "OK",
+        "cancel": "",
+        "raw": true,
+        "className": "",
+        "topic": "ALERTA",
+        "name": "Alerta",
+        "x": 710,
+        "y": 80,
+        "wires": [
+            []
+        ],
+        "icon": "node-red/alert.svg"
+    },
+    {
+        "id": "c0ada371dce93b04",
+        "type": "template",
+        "z": "fb79fe35059b7134",
+        "name": "Texto de la Alarma",
+        "field": "payload",
+        "fieldType": "msg",
+        "format": "handlebars",
+        "syntax": "mustache",
+        "template": "    ¡Atención!\n¡Ha sonado la Alarma!",
+        "output": "str",
+        "x": 510,
+        "y": 80,
+        "wires": [
+            [
+                "15d74c9d2984f395"
+            ]
+        ]
+    },
+    {
+        "id": "e0daad0a94b82eba",
+        "type": "function",
+        "z": "fb79fe35059b7134",
+        "name": "Funcion",
+        "func": "if (msg.payload == 1){\n   return msg; \n}\n",
+        "outputs": 1,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 320,
+        "y": 80,
+        "wires": [
+            [
+                "c0ada371dce93b04"
+            ]
+        ]
+    },
+    {
+        "id": "4f0f08ef604c2c65",
+        "type": "mqtt in",
+        "z": "fb79fe35059b7134",
+        "name": "Potenciometro",
+        "topic": "/vazquez/entradas/nivel",
+        "qos": "2",
+        "datatype": "auto",
+        "broker": "68f48d6607422a18",
+        "nl": false,
+        "rap": true,
+        "rh": 0,
+        "inputs": 0,
+        "x": 150,
+        "y": 180,
+        "wires": [
+            [
+                "0072dcc639c5c1d1"
+            ]
+        ]
+    },
+    {
+        "id": "fab0d10057a474d8",
+        "type": "ui_gauge",
+        "z": "fb79fe35059b7134",
+        "name": "Nivel del Potenciometro",
+        "group": "423f1b7f6df2d828",
+        "order": 1,
+        "width": 0,
+        "height": 0,
+        "gtype": "gage",
+        "title": "Nivel [%]",
+        "label": "%",
+        "format": "{{value}}%",
+        "min": 0,
+        "max": "100",
+        "colors": [
+            "#00b500",
+            "#e6e600",
+            "#ca3838"
+        ],
+        "seg1": "",
+        "seg2": "",
+        "className": "",
+        "x": 810,
+        "y": 140,
+        "wires": []
+    },
+    {
+        "id": "cbad0f21ca63c492",
+        "type": "mqtt in",
+        "z": "fb79fe35059b7134",
+        "name": "Temperatura",
+        "topic": "/vazquez/entradas/temperatura",
+        "qos": "2",
+        "datatype": "auto",
+        "broker": "68f48d6607422a18",
+        "nl": false,
+        "rap": true,
+        "rh": 0,
+        "inputs": 0,
+        "x": 150,
+        "y": 280,
+        "wires": [
+            [
+                "504f3641d5e4b281",
+                "14fd3dfd92cc28db"
+            ]
+        ]
+    },
+    {
+        "id": "504f3641d5e4b281",
+        "type": "ui_chart",
+        "z": "fb79fe35059b7134",
+        "name": "Historial de Temperatura ",
+        "group": "18da597307fc1bcf",
+        "order": 2,
+        "width": 0,
+        "height": 0,
+        "label": "Historial [°C]",
+        "chartType": "line",
+        "legend": "false",
+        "xformat": "HH:mm:ss",
+        "interpolate": "linear",
+        "nodata": "",
+        "dot": false,
+        "ymin": "0",
+        "ymax": "200",
+        "removeOlder": "2",
+        "removeOlderPoints": "",
+        "removeOlderUnit": "60",
+        "cutout": 0,
+        "useOneColor": false,
+        "useUTC": false,
+        "colors": [
+            "#d62728",
+            "#aec7e8",
+            "#ff7f0e",
+            "#2ca02c",
+            "#98df8a",
+            "#d62728",
+            "#ff9896",
+            "#9467bd",
+            "#c5b0d5"
+        ],
+        "outputs": 1,
+        "useDifferentColor": false,
+        "className": "",
+        "x": 390,
+        "y": 260,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "14fd3dfd92cc28db",
+        "type": "ui_gauge",
+        "z": "fb79fe35059b7134",
+        "name": "Temperatura actual",
+        "group": "18da597307fc1bcf",
+        "order": 1,
+        "width": 0,
+        "height": 0,
+        "gtype": "gage",
+        "title": "Valor actual [°C]",
+        "label": "°C",
+        "format": "{{value}}",
+        "min": 0,
+        "max": "200",
+        "colors": [
+            "#00a7b3",
+            "#e6c700",
+            "#cb3a3a"
+        ],
+        "seg1": "20",
+        "seg2": "40",
+        "className": "",
+        "x": 370,
+        "y": 320,
+        "wires": []
+    },
+    {
+        "id": "e341585f5cf95d97",
+        "type": "mqtt in",
+        "z": "fb79fe35059b7134",
+        "name": "Humedad",
+        "topic": "/vazquez/entradas/humedad",
+        "qos": "2",
+        "datatype": "auto",
+        "broker": "68f48d6607422a18",
+        "nl": false,
+        "rap": true,
+        "rh": 0,
+        "inputs": 0,
+        "x": 140,
+        "y": 400,
+        "wires": [
+            [
+                "734a3513c656206d",
+                "0edf45d9268d3d7b"
+            ]
+        ]
+    },
+    {
+        "id": "734a3513c656206d",
+        "type": "ui_chart",
+        "z": "fb79fe35059b7134",
+        "name": "Historial de Humedad",
+        "group": "8fef8756c529523f",
+        "order": 2,
+        "width": 0,
+        "height": 0,
+        "label": "Historial [%]",
+        "chartType": "line",
+        "legend": "false",
+        "xformat": "HH:mm:ss",
+        "interpolate": "linear",
+        "nodata": "",
+        "dot": false,
+        "ymin": "0",
+        "ymax": "100",
+        "removeOlder": "2",
+        "removeOlderPoints": "",
+        "removeOlderUnit": "60",
+        "cutout": 0,
+        "useOneColor": false,
+        "useUTC": false,
+        "colors": [
+            "#28d7a3",
+            "#aec7e8",
+            "#ff7f0e",
+            "#2ca02c",
+            "#98df8a",
+            "#d62728",
+            "#ff9896",
+            "#9467bd",
+            "#c5b0d5"
+        ],
+        "outputs": 1,
+        "useDifferentColor": false,
+        "className": "",
+        "x": 380,
+        "y": 380,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "0edf45d9268d3d7b",
+        "type": "ui_gauge",
+        "z": "fb79fe35059b7134",
+        "name": "Humedad actual",
+        "group": "8fef8756c529523f",
+        "order": 1,
+        "width": 0,
+        "height": 0,
+        "gtype": "gage",
+        "title": "Valor actual [%]",
+        "label": "%",
+        "format": "{{value}}",
+        "min": 0,
+        "max": "100",
+        "colors": [
+            "#00b34d",
+            "#00e6e2",
+            "#3a65cb"
+        ],
+        "seg1": "30",
+        "seg2": "60",
+        "className": "",
+        "x": 360,
+        "y": 440,
+        "wires": []
+    },
+    {
+        "id": "6a6eabb2e0447546",
+        "type": "ui_chart",
+        "z": "fb79fe35059b7134",
+        "name": "Historial del Potenciometro",
+        "group": "423f1b7f6df2d828",
+        "order": 2,
+        "width": 0,
+        "height": 0,
+        "label": "Historial [%]",
+        "chartType": "line",
+        "legend": "false",
+        "xformat": "HH:mm:ss",
+        "interpolate": "linear",
+        "nodata": "",
+        "dot": false,
+        "ymin": "0",
+        "ymax": "100",
+        "removeOlder": "2",
+        "removeOlderPoints": "",
+        "removeOlderUnit": "60",
+        "cutout": 0,
+        "useOneColor": false,
+        "useUTC": false,
+        "colors": [
+            "#d7b128",
+            "#aec7e8",
+            "#ff7f0e",
+            "#2ca02c",
+            "#98df8a",
+            "#d62728",
+            "#ff9896",
+            "#9467bd",
+            "#c5b0d5"
+        ],
+        "outputs": 1,
+        "useDifferentColor": false,
+        "className": "",
+        "x": 820,
+        "y": 200,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "7ca73e44ce2ae6a7",
+        "type": "ui_gauge",
+        "z": "fb79fe35059b7134",
+        "name": "Posicion angular",
+        "group": "5220241b06b7a601",
+        "order": 1,
+        "width": 0,
+        "height": 0,
+        "gtype": "gage",
+        "title": "Posicion angular",
+        "label": "°",
+        "format": "{{value}}",
+        "min": 0,
+        "max": "180",
+        "colors": [
+            "#00b4a0",
+            "#00b4a0",
+            "#00b4a0"
+        ],
+        "seg1": "",
+        "seg2": "",
+        "className": "",
+        "x": 570,
+        "y": 540,
+        "wires": []
+    },
+    {
+        "id": "50bd719d6640bdba",
+        "type": "ui_slider",
+        "z": "fb79fe35059b7134",
+        "name": "Servo",
+        "label": "",
+        "tooltip": "",
+        "group": "5220241b06b7a601",
+        "order": 2,
+        "width": 0,
+        "height": 0,
+        "passthru": false,
+        "outs": "end",
+        "topic": "topic",
+        "topicType": "msg",
+        "min": "10",
+        "max": "170",
+        "step": 1,
+        "className": "",
+        "x": 130,
+        "y": 540,
+        "wires": [
+            [
+                "7ca73e44ce2ae6a7",
+                "aee4b8faddbd40a7"
+            ]
+        ]
+    },
+    {
+        "id": "aee4b8faddbd40a7",
+        "type": "mqtt out",
+        "z": "fb79fe35059b7134",
+        "name": "Angulo del Servo",
+        "topic": "/vazquez/salidas/servo",
+        "qos": "",
+        "retain": "",
+        "respTopic": "",
+        "contentType": "",
+        "userProps": "",
+        "correl": "",
+        "expiry": "",
+        "broker": "68f48d6607422a18",
+        "x": 570,
+        "y": 600,
+        "wires": []
+    },
+    {
+        "id": "725fbd6fc3ace783",
+        "type": "ui_switch",
+        "z": "fb79fe35059b7134",
+        "name": "",
+        "label": "LED 3",
+        "tooltip": "",
+        "group": "076776fc2bf7c23f",
+        "order": 4,
+        "width": 0,
+        "height": 0,
+        "passthru": true,
+        "decouple": "false",
+        "topic": "topic",
+        "topicType": "msg",
+        "style": "",
+        "onvalue": "true",
+        "onvalueType": "bool",
+        "onicon": "",
+        "oncolor": "",
+        "offvalue": "false",
+        "offvalueType": "bool",
+        "officon": "",
+        "offcolor": "",
+        "animate": false,
+        "className": "",
+        "x": 130,
+        "y": 840,
+        "wires": [
+            [
+                "058463abad62101a"
+            ]
+        ]
+    },
+    {
+        "id": "d2b853199595e9ba",
+        "type": "ui_switch",
+        "z": "fb79fe35059b7134",
+        "name": "",
+        "label": "LED 1",
+        "tooltip": "",
+        "group": "076776fc2bf7c23f",
+        "order": 3,
+        "width": 0,
+        "height": 0,
+        "passthru": true,
+        "decouple": "false",
+        "topic": "topic",
+        "topicType": "msg",
+        "style": "",
+        "onvalue": "true",
+        "onvalueType": "bool",
+        "onicon": "",
+        "oncolor": "",
+        "offvalue": "false",
+        "offvalueType": "bool",
+        "officon": "",
+        "offcolor": "",
+        "animate": false,
+        "className": "",
+        "x": 130,
+        "y": 680,
+        "wires": [
+            [
+                "7caa75e23269220d"
+            ]
+        ]
+    },
+    {
+        "id": "13bc98d0bebc81b1",
+        "type": "ui_switch",
+        "z": "fb79fe35059b7134",
+        "name": "",
+        "label": "LED 2",
+        "tooltip": "",
+        "group": "076776fc2bf7c23f",
+        "order": 3,
+        "width": 0,
+        "height": 0,
+        "passthru": true,
+        "decouple": "false",
+        "topic": "topic",
+        "topicType": "msg",
+        "style": "",
+        "onvalue": "true",
+        "onvalueType": "bool",
+        "onicon": "",
+        "oncolor": "",
+        "offvalue": "false",
+        "offvalueType": "bool",
+        "officon": "",
+        "offcolor": "",
+        "animate": false,
+        "className": "",
+        "x": 130,
+        "y": 760,
+        "wires": [
+            [
+                "c6ad156953fb63e6"
+            ]
+        ]
+    },
+    {
+        "id": "7caa75e23269220d",
+        "type": "change",
+        "z": "fb79fe35059b7134",
+        "name": "",
+        "rules": [
+            {
+                "t": "change",
+                "p": "payload",
+                "pt": "msg",
+                "from": "true",
+                "fromt": "bool",
+                "to": "1",
+                "tot": "num"
+            },
+            {
+                "t": "change",
+                "p": "payload",
+                "pt": "msg",
+                "from": "false",
+                "fromt": "bool",
+                "to": "0",
+                "tot": "num"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 340,
+        "y": 680,
+        "wires": [
+            [
+                "c732502b9a1810e7"
+            ]
+        ]
+    },
+    {
+        "id": "c732502b9a1810e7",
+        "type": "mqtt out",
+        "z": "fb79fe35059b7134",
+        "name": "LEDs",
+        "topic": "/vazquez/salidas/led_1",
+        "qos": "",
+        "retain": "",
+        "respTopic": "",
+        "contentType": "",
+        "userProps": "",
+        "correl": "",
+        "expiry": "",
+        "broker": "68f48d6607422a18",
+        "x": 550,
+        "y": 680,
+        "wires": []
+    },
+    {
+        "id": "c6ad156953fb63e6",
+        "type": "change",
+        "z": "fb79fe35059b7134",
+        "name": "",
+        "rules": [
+            {
+                "t": "change",
+                "p": "payload",
+                "pt": "msg",
+                "from": "true",
+                "fromt": "bool",
+                "to": "1",
+                "tot": "num"
+            },
+            {
+                "t": "change",
+                "p": "payload",
+                "pt": "msg",
+                "from": "false",
+                "fromt": "bool",
+                "to": "0",
+                "tot": "num"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 340,
+        "y": 760,
+        "wires": [
+            [
+                "4bde480155a83895"
+            ]
+        ]
+    },
+    {
+        "id": "4bde480155a83895",
+        "type": "mqtt out",
+        "z": "fb79fe35059b7134",
+        "name": "LEDs",
+        "topic": "/vazquez/salidas/led_2",
+        "qos": "",
+        "retain": "",
+        "respTopic": "",
+        "contentType": "",
+        "userProps": "",
+        "correl": "",
+        "expiry": "",
+        "broker": "68f48d6607422a18",
+        "x": 550,
+        "y": 760,
+        "wires": []
+    },
+    {
+        "id": "058463abad62101a",
+        "type": "change",
+        "z": "fb79fe35059b7134",
+        "name": "",
+        "rules": [
+            {
+                "t": "change",
+                "p": "payload",
+                "pt": "msg",
+                "from": "true",
+                "fromt": "bool",
+                "to": "1",
+                "tot": "num"
+            },
+            {
+                "t": "change",
+                "p": "payload",
+                "pt": "msg",
+                "from": "false",
+                "fromt": "bool",
+                "to": "0",
+                "tot": "num"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 340,
+        "y": 840,
+        "wires": [
+            [
+                "67ea26464cd510f5"
+            ]
+        ]
+    },
+    {
+        "id": "67ea26464cd510f5",
+        "type": "mqtt out",
+        "z": "fb79fe35059b7134",
+        "name": "LEDs",
+        "topic": "/vazquez/salidas/led_3",
+        "qos": "",
+        "retain": "",
+        "respTopic": "",
+        "contentType": "",
+        "userProps": "",
+        "correl": "",
+        "expiry": "",
+        "broker": "68f48d6607422a18",
+        "x": 550,
+        "y": 840,
+        "wires": []
+    },
+    {
+        "id": "52f199bcd714139b",
+        "type": "ui_colour_picker",
+        "z": "fb79fe35059b7134",
+        "name": "Neo Pixel Color 1",
+        "label": "NeoPixel 1",
+        "group": "3dbf03b43b62a66b",
+        "format": "rgb",
+        "outformat": "string",
+        "showSwatch": true,
+        "showPicker": false,
+        "showValue": false,
+        "showHue": false,
+        "showAlpha": false,
+        "showLightness": true,
+        "square": "false",
+        "dynOutput": "false",
+        "order": 2,
+        "width": 0,
+        "height": 0,
+        "passthru": true,
+        "topic": "topic",
+        "topicType": "msg",
+        "className": "",
+        "x": 170,
+        "y": 940,
+        "wires": [
+            [
+                "8ca4f43eec8d1775"
+            ]
+        ]
+    },
+    {
+        "id": "5b085f9ffaceb273",
+        "type": "ui_colour_picker",
+        "z": "fb79fe35059b7134",
+        "name": "Neo Pixel Color 2",
+        "label": "NeoPixel 1",
+        "group": "3dbf03b43b62a66b",
+        "format": "rgb",
+        "outformat": "string",
+        "showSwatch": true,
+        "showPicker": false,
+        "showValue": false,
+        "showHue": false,
+        "showAlpha": false,
+        "showLightness": true,
+        "square": "false",
+        "dynOutput": "false",
+        "order": 2,
+        "width": 0,
+        "height": 0,
+        "passthru": true,
+        "topic": "topic",
+        "topicType": "msg",
+        "className": "",
+        "x": 170,
+        "y": 1000,
+        "wires": [
+            [
+                "7dedb968b50cd26d"
+            ]
+        ]
+    },
+    {
+        "id": "e4cdf838ab308048",
+        "type": "ui_colour_picker",
+        "z": "fb79fe35059b7134",
+        "name": "Neo Pixel Color 3",
+        "label": "NeoPixel 1",
+        "group": "3dbf03b43b62a66b",
+        "format": "rgb",
+        "outformat": "string",
+        "showSwatch": true,
+        "showPicker": false,
+        "showValue": false,
+        "showHue": false,
+        "showAlpha": false,
+        "showLightness": true,
+        "square": "false",
+        "dynOutput": "false",
+        "order": 2,
+        "width": 0,
+        "height": 0,
+        "passthru": true,
+        "topic": "topic",
+        "topicType": "msg",
+        "className": "",
+        "x": 170,
+        "y": 1060,
+        "wires": [
+            [
+                "061f7cb571cd1e7c"
+            ]
+        ]
+    },
+    {
+        "id": "8ca4f43eec8d1775",
+        "type": "function",
+        "z": "fb79fe35059b7134",
+        "name": "",
+        "func": "msg.payload = ((msg.payload).slice(4,-1)).replace(/ /g, \"\")\nreturn msg;",
+        "outputs": 1,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 400,
+        "y": 940,
+        "wires": [
+            [
+                "7ef31ff02dc513f9"
+            ]
+        ]
+    },
+    {
+        "id": "7dedb968b50cd26d",
+        "type": "function",
+        "z": "fb79fe35059b7134",
+        "name": "",
+        "func": "msg.payload = ((msg.payload).slice(4,-1)).replace(/ /g, \"\")\nreturn msg;",
+        "outputs": 1,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 400,
+        "y": 1000,
+        "wires": [
+            [
+                "5954e1034162f2fd"
+            ]
+        ]
+    },
+    {
+        "id": "061f7cb571cd1e7c",
+        "type": "function",
+        "z": "fb79fe35059b7134",
+        "name": "",
+        "func": "msg.payload = ((msg.payload).slice(4,-1)).replace(/ /g, \"\")\nreturn msg;",
+        "outputs": 1,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 400,
+        "y": 1060,
+        "wires": [
+            [
+                "010bde5884bc9f56"
+            ]
+        ]
+    },
+    {
+        "id": "7ef31ff02dc513f9",
+        "type": "mqtt out",
+        "z": "fb79fe35059b7134",
+        "name": "NEOPIXELs",
+        "topic": "/vazquez/salidas/neopixel/0",
+        "qos": "",
+        "retain": "",
+        "respTopic": "",
+        "contentType": "",
+        "userProps": "",
+        "correl": "",
+        "expiry": "",
+        "broker": "68f48d6607422a18",
+        "x": 570,
+        "y": 940,
+        "wires": []
+    },
+    {
+        "id": "5954e1034162f2fd",
+        "type": "mqtt out",
+        "z": "fb79fe35059b7134",
+        "name": "NEOPIXELs",
+        "topic": "/vazquez/salidas/neopixel/1",
+        "qos": "",
+        "retain": "",
+        "respTopic": "",
+        "contentType": "",
+        "userProps": "",
+        "correl": "",
+        "expiry": "",
+        "broker": "68f48d6607422a18",
+        "x": 570,
+        "y": 1000,
+        "wires": []
+    },
+    {
+        "id": "010bde5884bc9f56",
+        "type": "mqtt out",
+        "z": "fb79fe35059b7134",
+        "name": "NEOPIXELs",
+        "topic": "/vazquez/salidas/neopixel/2",
+        "qos": "",
+        "retain": "",
+        "respTopic": "",
+        "contentType": "",
+        "userProps": "",
+        "correl": "",
+        "expiry": "",
+        "broker": "68f48d6607422a18",
+        "x": 570,
+        "y": 1060,
+        "wires": []
+    },
+    {
+        "id": "0072dcc639c5c1d1",
+        "type": "range",
+        "z": "fb79fe35059b7134",
+        "minin": "0",
+        "maxin": "4095",
+        "minout": "0",
+        "maxout": "100",
+        "action": "scale",
+        "round": false,
+        "property": "payload",
+        "name": "",
+        "x": 360,
+        "y": 180,
+        "wires": [
+            [
+                "5899888a3a671546"
+            ]
+        ]
+    },
+    {
+        "id": "5899888a3a671546",
+        "type": "function",
+        "z": "fb79fe35059b7134",
+        "name": "",
+        "func": "msg.payload = Math.round(msg.payload);\nreturn msg;",
+        "outputs": 1,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 540,
+        "y": 180,
+        "wires": [
+            [
+                "fab0d10057a474d8",
+                "6a6eabb2e0447546"
+            ]
+        ]
+    },
+    {
+        "id": "68f48d6607422a18",
+        "type": "mqtt-broker",
+        "name": "",
+        "broker": "10.2.13.97",
+        "port": "1884",
+        "clientid": "",
+        "autoConnect": true,
+        "usetls": false,
+        "protocolVersion": "4",
+        "keepalive": "60",
+        "cleansession": true,
+        "birthTopic": "",
+        "birthQos": "0",
+        "birthPayload": "",
+        "birthMsg": {},
+        "closeTopic": "",
+        "closeQos": "0",
+        "closePayload": "",
+        "closeMsg": {},
+        "willTopic": "",
+        "willQos": "0",
+        "willPayload": "",
+        "willMsg": {},
+        "sessionExpiry": ""
+    },
+    {
+        "id": "423f1b7f6df2d828",
+        "type": "ui_group",
+        "name": "Potenciometro",
+        "tab": "c7189d2dc5bb9beb",
+        "order": 3,
+        "disp": true,
+        "width": "8",
+        "collapse": false,
+        "className": ""
+    },
+    {
+        "id": "18da597307fc1bcf",
+        "type": "ui_group",
+        "name": "Temperatura",
+        "tab": "c7189d2dc5bb9beb",
+        "order": 1,
+        "disp": true,
+        "width": "8",
+        "collapse": false,
+        "className": ""
+    },
+    {
+        "id": "8fef8756c529523f",
+        "type": "ui_group",
+        "name": "Humedad",
+        "tab": "c7189d2dc5bb9beb",
+        "order": 2,
+        "disp": true,
+        "width": "8",
+        "collapse": false,
+        "className": ""
+    },
+    {
+        "id": "5220241b06b7a601",
+        "type": "ui_group",
+        "name": "Posición del Servo",
+        "tab": "9c7cc785c229f6cf",
+        "order": 1,
+        "disp": true,
+        "width": "8",
+        "collapse": false,
+        "className": ""
+    },
+    {
+        "id": "076776fc2bf7c23f",
+        "type": "ui_group",
+        "name": "LEDs",
+        "tab": "9c7cc785c229f6cf",
+        "order": 2,
+        "disp": true,
+        "width": "8",
+        "collapse": false,
+        "className": ""
+    },
+    {
+        "id": "3dbf03b43b62a66b",
+        "type": "ui_group",
+        "name": "Colores de los NeoPixels",
+        "tab": "9c7cc785c229f6cf",
+        "order": 3,
+        "disp": true,
+        "width": "8",
+        "collapse": false,
+        "className": ""
+    },
+    {
+        "id": "c7189d2dc5bb9beb",
+        "type": "ui_tab",
+        "name": "Entradas",
+        "icon": "dashboard",
+        "order": 1,
+        "disabled": false,
+        "hidden": false
+    },
+    {
+        "id": "9c7cc785c229f6cf",
+        "type": "ui_tab",
+        "name": "Salidas",
+        "icon": "dashboard",
+        "order": 2,
+        "disabled": false,
+        "hidden": false
+    }
+]
